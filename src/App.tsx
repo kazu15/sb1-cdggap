@@ -9,7 +9,7 @@ const SHUFFLE_DURATION = 4000;
 const INITIAL_INTERVAL = 50;
 
 // Using a reliable audio hosting URL
-const BGM_URL = 'https://drive.google.com/file/d/1PfqanK8BDDxb51f0UccfLrkQN_zlwKGF/view?usp=sharing';
+const BGM_URL = '/home/kazu15/sb1-cdggap/src/SE114_2.mp3';
 
 function App() {
   const [numbers, setNumbers] = useState<number[]>(Array.from({ length: MAX_NUMBER }, (_, i) => i + 1));
