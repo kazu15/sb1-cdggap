@@ -8,7 +8,7 @@ interface NumberDisplayProps {
 export function NumberDisplay({ displayNumber, isShuffling }: NumberDisplayProps) {
   return (
     <div className="text-center mb-6">
-      <div className={`text-[300px] leading-tight font-bold ${isShuffling ? 'text-gray-400' : 'text-blue-600'} h-72 flex items-center justify-center transition-colors duration-300`}>
+      <div className={`text-[500px] leading-tight font-bold ${isShuffling ? 'text-gray-400' : 'text-blue-600'} h-[25rem] flex items-center justify-center transition-colors duration-300`}>
         {isShuffling ? (
           <span className="animate-pulse">{displayNumber}</span>
         ) : (

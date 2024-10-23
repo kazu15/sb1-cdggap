@@ -5,11 +5,12 @@ import { NumberDisplay } from './components/NumberDisplay';
 import { SelectedNumbers } from './components/SelectedNumbers';
 
 const MAX_NUMBER = 140;
-const SHUFFLE_DURATION = 4000;
-const INITIAL_INTERVAL = 50;
+const SHUFFLE_DURATION = 4500;
+const INITIAL_INTERVAL = 60;
 
 // Using a reliable audio hosting URL
-const BGM_URL = '/home/kazu15/sb1-cdggap/src/SE114_2.mp3';
+const DRUM_ROLL_URL = './src/SE114_2.mp3';
+const SUCCESS_SOUND_URL = 'https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3';
 
 function App() {
   const [numbers, setNumbers] = useState<number[]>(Array.from({ length: MAX_NUMBER }, (_, i) => i + 1));
@@ -19,11 +20,23 @@ function App() {
   const [displayNumber, setDisplayNumber] = useState<number | null>(null);
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-
+  const successSoundRef = useRef<HTMLAudioElement>(null);
+  
   const toggleMute = () => {
     if (audioRef.current) {
       audioRef.current.muted = !audioRef.current.muted;
       setIsMuted(!isMuted);
+    }
+  };
+
+  const playSound = async (audioRef: React.RefObject<HTMLAudioElement>) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      try {
+        await audioRef.current.play();
+      } catch (error) {
+        console.error('Audio playback failed:', error);
+      }
     }
   };
 
@@ -47,6 +60,7 @@ function App() {
       } else {
         setIsShuffling(false);
         setDisplayNumber(currentNumber);
+        playSound(successSoundRef);
       }
     };
 
@@ -88,8 +102,8 @@ function App() {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       <AudioControl isMuted={isMuted} onToggleMute={toggleMute} />
       
-      <h1 className="text-[50px] font-bold mb-8">抽選結果発表</h1>
-      <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-[50rem]">
+      <h1 className="text-[55px] font-bold mb-8">抽選結果発表</h1>
+      <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-[100rem]">
         <NumberDisplay displayNumber={displayNumber} isShuffling={isShuffling} />
         
         <div className="flex justify-center space-x-4 mb-6">
@@ -114,7 +128,8 @@ function App() {
         Reset
       </button>
       
-      <audio ref={audioRef} src={BGM_URL} preload="auto" />
+      <audio ref={audioRef} src={DRUM_ROLL_URL} preload="auto" />
+      <audio ref={successSoundRef} src={SUCCESS_SOUND_URL} preload="auto" />
     </div>
   );
 }
