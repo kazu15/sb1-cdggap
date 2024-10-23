@@ -10,7 +10,7 @@ const INITIAL_INTERVAL = 60;
 
 // Using a reliable audio hosting URL
 const DRUM_ROLL_URL = './src/SE114_2.mp3';
-const SUCCESS_SOUND_URL = 'https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3';
+const SUCCESS_SOUND_URL = './src/太鼓2連打.mp3';
 
 function App() {
   const [numbers, setNumbers] = useState<number[]>(Array.from({ length: MAX_NUMBER }, (_, i) => i + 1));
